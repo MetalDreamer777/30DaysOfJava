@@ -37,7 +37,11 @@ public class notes {
  * use [ git config --global --edit ] to open config file to edit it and update info like email or author name
  * then [ git commit --amend --reset-author "name" ] to update the authors name for this commit
  * 
+ * use [ git push origin master ] to finally upload the commit to gitHub
+ * 
  * to assign a repository on your computer to a repository on gitHub, just follow the instructions on gitHub in the terminal
  * the directory the repository is in open in terminal
+ * 
+ * 
  */
 }
