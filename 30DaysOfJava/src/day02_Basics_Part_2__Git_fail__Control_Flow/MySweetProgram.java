@@ -1,4 +1,4 @@
-package e02_Basics_Part_2__Git_fail__Control_Flow;
+package day02_Basics_Part_2__Git_fail__Control_Flow;
 
 import java.util.Scanner;
 
