@@ -30,7 +30,7 @@ public class notes {
  * 
  * use [ git rm -r ] plus the file to delete it completely
  * 
- * use [ got commit - m "name of commit" ] to name the commit
+ * use [ git commit - m "name of commit" ] to name the commit
  * 
  * use [ git log ] to view commit details
  * 
