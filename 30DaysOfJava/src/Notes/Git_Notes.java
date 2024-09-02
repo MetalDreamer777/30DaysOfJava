@@ -1,6 +1,6 @@
-package day03_Git_and_GitHub_Setup_for_Java_Projects;
+package Notes;
 // https://youtu.be/pmiIhgG08pQ?si=o0yPB7fy-qUUPJX4
-public class notes {
+public class Git_Notes {
 /* 
  * Open terminal with windows key + r and enter "cmd" into the prompt
  * 

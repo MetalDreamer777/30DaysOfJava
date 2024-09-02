@@ -1,4 +1,4 @@
-package day04_Reading_from_a_File_Collections;
+
 
 import java.io.File;
 import java.io.FileNotFoundException;
