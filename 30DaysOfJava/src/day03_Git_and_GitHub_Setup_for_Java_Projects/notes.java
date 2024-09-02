@@ -43,5 +43,8 @@ public class notes {
  * the directory the repository is in open in terminal
  * 
  * 
+ * Tip: (from Day 4)
+ * when naming a commit, by convention, use present tense of what you did
+ * for example, if deleting junk files, you could name the commit "delete junk"
  */
 }
