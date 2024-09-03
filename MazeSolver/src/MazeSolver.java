@@ -1,4 +1,4 @@
-import java.io.FileNotFoundException;
+
 import java.util.Arrays;
 import java.util.LinkedList;
 
@@ -22,7 +22,7 @@ public class MazeSolver {
 	
 	static LinkedList<Position> path = new LinkedList<Position>();
 	
-	public static void main(String[] args) throws FileNotFoundException {
+	public static void main(String[] args) {
 		Position p = new Position(0, 10);
 		path.push(p);
 		
