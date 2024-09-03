@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.LinkedList;
 
@@ -21,7 +22,7 @@ public class MazeSolver {
 	
 	static LinkedList<Position> path = new LinkedList<Position>();
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws FileNotFoundException {
 		Position p = new Position(0, 10);
 		path.push(p);
 		
@@ -36,11 +37,11 @@ public class MazeSolver {
 			//down
 			if(isValid(y+1, x)) {
 				if(maze[y+1][x]==2) {
-					System.out.println("Moved Down\n\nYou Won!");
+					System.out.println(Color.GREEN + "Moved Down" + Color.RESET + "\n\nYou Won!");
 					System.out.println(Arrays.deepToString(maze));
 					return;
 				}else if(maze[y+1][x]==1) {
-					System.out.println("Moved Down");
+					System.out.println(Color.GREEN + "Moved Down" + Color.RESET);
 					path.push(new Position(y+1, x));
 					continue;
 				}
@@ -51,10 +52,10 @@ public class MazeSolver {
 			//left
 			if(isValid(y, x-1)) {
 				if(maze[y][x-1]==2) {
-					System.out.println("Moved Left\n\nYou Won!");
+					System.out.println(Color.CYAN + "Moved Left" + Color.RESET + "\n\nYou Won!");
 					System.out.println(Arrays.deepToString(maze));
 				}else if(maze[y][x-1]==1) {
-					System.out.println("Moved Left");
+					System.out.println(Color.CYAN + "Moved Left" + Color.RESET);
 					path.push(new Position(y, x-1));
 					continue;
 				}
@@ -65,11 +66,11 @@ public class MazeSolver {
 			//up
 			if(isValid(y-1, x)) {
 				if(maze[y-1][x]==2) {
-					System.out.println("Moved Up\n\nYou Won!");
+					System.out.println(Color.YELLOW + "Moved Up" + Color.RESET + "\n\nYou Won!");
 					System.out.println(Arrays.deepToString(maze));
 					return;
 				}else if(maze[y-1][x]==1) {
-					System.out.println("Moved Up");
+					System.out.println(Color.YELLOW + "Moved Up" + Color.RESET);
 					path.push(new Position(y-1, x));
 					continue;
 				}
@@ -80,18 +81,19 @@ public class MazeSolver {
 			//right
 			if(isValid(y, x+1)) {
 				if(maze[y][x+1]==2) {
-					System.out.println("Moved Right\n\nYou Won!");
+					System.out.println(Color.PURPLE + "Moved Right" + Color.RESET + "\n\nYou Won!");
 					System.out.println(Arrays.deepToString(maze));
 					return;
 				}else if(maze[y][x+1]==1) {
-					System.out.println("Moved Right");
+					System.out.println(Color.PURPLE + "Moved Right" + Color.RESET);
 					path.push(new Position(y, x+1));
 					continue;
 				}
 			}
 			 
 			//backtrack
-			System.out.println("Moved Back");
+			System.out.println(Color.RED + "Moved Back" + Color.RESET);
+
 			path.pop();
 			if(path.size() == 0) {
 				System.out.println("No Path");
