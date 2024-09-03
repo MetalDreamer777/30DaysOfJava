@@ -15,11 +15,11 @@ public class MazeSolver {
 			{1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1}
 	};
 	
-	static // 0 = wall
+	// 0 = wall
 	// 1 = path
 	// 2 = destination
 	
-	LinkedList<Position> path = new LinkedList<Position>();
+	static LinkedList<Position> path = new LinkedList<Position>();
 	
 	public static void main(String[] args) {
 		Position p = new Position(0, 10);
@@ -29,10 +29,11 @@ public class MazeSolver {
 			int x = path.peek().x;
 			int y = path.peek().y;
 			maze[y][x] = 0;
-//			System.out.println("\nPosition: " + y + ", " + x);
-			
+/*			
+			System.out.println("\nPosition: " + y + ", " + x);
+			System.out.print("Down: ");
+//*/
 			//down
-//			System.out.print("Down: ");
 			if(isValid(y+1, x)) {
 				if(maze[y+1][x]==2) {
 					System.out.println("Moved Down\n\nYou Won!");
@@ -44,9 +45,10 @@ public class MazeSolver {
 					continue;
 				}
 			}
-			
+/*
+			System.out.print("Left: ");
+//*/
 			//left
-//			System.out.print("Left: ");
 			if(isValid(y, x-1)) {
 				if(maze[y][x-1]==2) {
 					System.out.println("Moved Left\n\nYou Won!");
@@ -57,9 +59,10 @@ public class MazeSolver {
 					continue;
 				}
 			}
-			
+/*
+			System.out.print("Up: ");
+//*/
 			//up
-//			System.out.print("Up: ");
 			if(isValid(y-1, x)) {
 				if(maze[y-1][x]==2) {
 					System.out.println("Moved Up\n\nYou Won!");
@@ -70,10 +73,11 @@ public class MazeSolver {
 					path.push(new Position(y-1, x));
 					continue;
 				}
-			}
-			
+			}	
+/*
+			System.out.print("Right: ");
+//*/
 			//right
-//			System.out.print("Right: ");
 			if(isValid(y, x+1)) {
 				if(maze[y][x+1]==2) {
 					System.out.println("Moved Right\n\nYou Won!");
@@ -85,9 +89,8 @@ public class MazeSolver {
 					continue;
 				}
 			}
-			
+			 
 			//backtrack
-//			System.out.println("Backtracking");
 			System.out.println("Moved Back");
 			path.pop();
 			if(path.size() == 0) {
@@ -99,13 +102,21 @@ public class MazeSolver {
 	
 	public static boolean isValid(int y, int x) {
 		if(y < 0 || y >= maze.length) {
-//			System.out.println("Out Of Bounds y = " + y + " | 0 - " + (maze.length - 1) + " |");
+/*
+			System.out.println("Out Of Bounds y = " + y + " | 0 - " + (maze.length - 1) + " |");
+//*/
 			return false;
 		} else if(x < 0 || x >= maze[y].length) {
-//			System.out.println("Out Of Bounds x = " + x + " | 0 - " + (maze[y].length - 1) + " |");
+/*
+			System.out.println("Out Of Bounds x = " + x + " | 0 - " + (maze[y].length - 1) + " |");
+//*/
 			return false;
 		}
-//		System.out.println("In Bounds");
+/*
+		System.out.println("In Bounds");
+//*/
 		return true;
 	}
+	
+	
 }
