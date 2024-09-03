@@ -11,24 +11,14 @@ public class MySweetProgram {
 			Scanner in = new Scanner(System.in);
 			System.out.println(
 					  "Enter a number to choose a method\n"
-					+ "1 : iteraton\n"
-					+ "2 : insertAndIteratingWithForLoop\n"
-					+ "3 : listIterator");
+					+ "1 : arrays2D");
 			String method = in.nextLine();
 			switch (method) {
 			default:
 				System.out.println("Not a Method");
 				break;
 			case "1":
-				iterator();
-				run = false;
-				break;
-			case "2":
-				insertAndIteratingWithForLoop();
-				run = false;
-				break;
-			case "3":
-				listIterator();
+				arrays2D();
 				run = false;
 				break;
 			}
@@ -36,56 +26,21 @@ public class MySweetProgram {
 		}
 	}
 	
-	public static void iterator() {
-		LinkedList<String> names = new LinkedList<String>();
-		names.push("Josiah");
-		names.push("Caleb"); 
-		names.push("Sue");
-
-		Iterator<String> it = names.iterator();
-/*/
-		System.out.println(it.next());
-		System.out.println(it.next());
-		System.out.println(it.next());
-//		System.out.println(it.next()); // will throw an exception
+	public static void arrays2D() {
+		int[][] data = {
+				{4, 60, 7, 82},
+				{4, 6, 420, 8, 5, 8, 3, 9},
+				{5, 42, 7, 64}
+		};
 		
-		if(it.hasNext()) {
-			System.out.println(it.next());
-		}
-/*/		
-		// better way to do all that ^^
-		while(it.hasNext()) {
-			System.out.println(it.next());
-		}
-//*/
-	}
-	
-	public static void insertAndIteratingWithForLoop() {
-		LinkedList<String> names = new LinkedList<String>();
-		names.push("Josiah");
-		names.push("Caleb"); 
-		names.push("Sue");
-
-		names.add(2, "Susan");
+		System.out.println(data[1][2]);
+		data[1][2] = 69;
 		
-		for(String s : names) {
-			System.out.println(s);
-		}
-	}
-	
-	public static void listIterator() {
-		LinkedList<String> names = new LinkedList<String>();
-		names.push("Josiah");
-		names.push("Caleb"); 
-		names.push("Sue");
-		
-		ListIterator<String> it = names.listIterator();
-		it.next();
-		it.next();
-		it.add("Susan");
-		
-		for(String s : names) {
-			System.out.println(s);
+		for(int i = 0; i < data.length; i++) {
+			for(int k = 0; k < data[i].length; k++) {
+				System.out.print(data[i][k] + " ");
+			}
+			System.out.println();
 		}
 	}
 }
