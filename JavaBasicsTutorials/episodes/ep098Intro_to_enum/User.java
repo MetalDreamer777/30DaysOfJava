@@ -1,4 +1,4 @@
-package ep099Intro_to_enum;
+package ep098Intro_to_enum;
 
 public abstract class User implements Talk {
 	public enum status {active, innactive, probation, suspended}; // <--An enumeration allows you to create a type that 

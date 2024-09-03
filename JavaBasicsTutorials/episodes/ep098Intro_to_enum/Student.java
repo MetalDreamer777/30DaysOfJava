@@ -1,4 +1,4 @@
-package ep099Intro_to_enum;
+package ep098Intro_to_enum;
 
 public class Student extends User implements Talk {
 	public boolean verified = true;
