@@ -1,4 +1,6 @@
+import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.ListIterator;
 import java.util.Scanner;
 
 public class MySweetProgram {
@@ -9,14 +11,24 @@ public class MySweetProgram {
 			Scanner in = new Scanner(System.in);
 			System.out.println(
 					  "Enter a number to choose a method\n"
-					+ "1 : stack");
+					+ "1 : iteraton\n"
+					+ "2 : insertAndIteratingWithForLoop\n"
+					+ "3 : listIterator");
 			String method = in.nextLine();
 			switch (method) {
 			default:
 				System.out.println("Not a Method");
 				break;
 			case "1":
-				stack();
+				iterator();
+				run = false;
+				break;
+			case "2":
+				insertAndIteratingWithForLoop();
+				run = false;
+				break;
+			case "3":
+				listIterator();
 				run = false;
 				break;
 			}
@@ -24,15 +36,57 @@ public class MySweetProgram {
 		}
 	}
 	
-	public static void stack() {
+	public static void iterator() {
 		LinkedList<String> names = new LinkedList<String>();
 		names.push("Josiah");
-		names.push("Caleb"); //push and addFirst are the same thing
-		names.addFirst("Sue");
+		names.push("Caleb"); 
+		names.push("Sue");
+
+		Iterator<String> it = names.iterator();
+/*/
+		System.out.println(it.next());
+		System.out.println(it.next());
+		System.out.println(it.next());
+//		System.out.println(it.next()); // will throw an exception
 		
-		System.out.println(names.pop()); //pop and removeFirst are identical
-		System.out.println(names.removeFirst());
-		System.out.println(names.remove()); //remove can take an index argument but defaults to 0 if left blank, can input an object to remove that object. these different ways of doing it are called overloads
+		if(it.hasNext()) {
+			System.out.println(it.next());
+		}
+/*/		
+		// better way to do all that ^^
+		while(it.hasNext()) {
+			System.out.println(it.next());
+		}
+//*/
+	}
+	
+	public static void insertAndIteratingWithForLoop() {
+		LinkedList<String> names = new LinkedList<String>();
+		names.push("Josiah");
+		names.push("Caleb"); 
+		names.push("Sue");
+
+		names.add(2, "Susan");
+		
+		for(String s : names) {
+			System.out.println(s);
+		}
+	}
+	
+	public static void listIterator() {
+		LinkedList<String> names = new LinkedList<String>();
+		names.push("Josiah");
+		names.push("Caleb"); 
+		names.push("Sue");
+		
+		ListIterator<String> it = names.listIterator();
+		it.next();
+		it.next();
+		it.add("Susan");
+		
+		for(String s : names) {
+			System.out.println(s);
+		}
 	}
 }
 
