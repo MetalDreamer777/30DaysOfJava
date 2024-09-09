@@ -1,35 +1,37 @@
 
-import java.util.Arrays;
 import java.util.LinkedList;
 
 public class MazeSolver {
 	
-	static int[][] maze = {
-			{2, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-			{1, 1, 1, 0, 0, 1, 0, 0, 1, 0, 1},
-			{0, 1, 0, 1, 1, 0, 1, 0, 1, 1, 0},
-			{1, 1, 0, 1, 0, 1, 1, 1, 1, 0, 1},
-			{0, 0, 1, 1, 0, 1, 1, 0, 0, 0, 1},
-			{1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1},
-			{1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1},
-			{1, 0, 0, 1, 1, 1, 0, 0, 1, 0, 1},
-			{1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1}
-	};
+	static Maze Set = new Maze();
 	
-	// 0 = wall
-	// 1 = path
-	// 2 = destination
+	static int[][] maze;
 	
 	static LinkedList<Position> path = new LinkedList<Position>();
 	
 	public static void main(String[] args) {
-		Position p = new Position(0, 10);
+		Maze.setMaze(Mazes.maze1); // chose maze here
+		maze = Set.getMaze();
+		
+		Maze.printMaze(maze);
+		Position start = getStart(maze);
+		Position p = start;
 		path.push(p);
 		
-		while(true) {
+		
+		
+		Boolean run = true;
+		while(run == true) {
 			int x = path.peek().x;
 			int y = path.peek().y;
-			maze[y][x] = 0;
+			
+			if (maze[y][x] == 2) {
+				System.out.println("Found end at start.");
+				run = false;
+				continue;
+			}
+			
+			maze[y][x] = -1;
 /*			
 			System.out.println("\nPosition: " + y + ", " + x);
 			System.out.print("Down: ");
@@ -38,8 +40,8 @@ public class MazeSolver {
 			if(isValid(y+1, x)) {
 				if(maze[y+1][x]==2) {
 					System.out.println(Color.GREEN + "Moved Down" + Color.RESET + "\n\nYou Won!");
-					System.out.println(Arrays.deepToString(maze));
-					return;
+					run = false;
+					continue;
 				}else if(maze[y+1][x]==1) {
 					System.out.println(Color.GREEN + "Moved Down" + Color.RESET);
 					path.push(new Position(y+1, x));
@@ -53,7 +55,8 @@ public class MazeSolver {
 			if(isValid(y, x-1)) {
 				if(maze[y][x-1]==2) {
 					System.out.println(Color.CYAN + "Moved Left" + Color.RESET + "\n\nYou Won!");
-					System.out.println(Arrays.deepToString(maze));
+					run = false;
+					continue;
 				}else if(maze[y][x-1]==1) {
 					System.out.println(Color.CYAN + "Moved Left" + Color.RESET);
 					path.push(new Position(y, x-1));
@@ -67,8 +70,8 @@ public class MazeSolver {
 			if(isValid(y-1, x)) {
 				if(maze[y-1][x]==2) {
 					System.out.println(Color.YELLOW + "Moved Up" + Color.RESET + "\n\nYou Won!");
-					System.out.println(Arrays.deepToString(maze));
-					return;
+					run = false;
+					continue;
 				}else if(maze[y-1][x]==1) {
 					System.out.println(Color.YELLOW + "Moved Up" + Color.RESET);
 					path.push(new Position(y-1, x));
@@ -82,8 +85,8 @@ public class MazeSolver {
 			if(isValid(y, x+1)) {
 				if(maze[y][x+1]==2) {
 					System.out.println(Color.PURPLE + "Moved Right" + Color.RESET + "\n\nYou Won!");
-					System.out.println(Arrays.deepToString(maze));
-					return;
+					run = false;
+					continue;
 				}else if(maze[y][x+1]==1) {
 					System.out.println(Color.PURPLE + "Moved Right" + Color.RESET);
 					path.push(new Position(y, x+1));
@@ -93,16 +96,25 @@ public class MazeSolver {
 			 
 			//backtrack
 			System.out.println(Color.RED + "Moved Back" + Color.RESET);
-
+			maze[y][x] = 3;
 			path.pop();
 			if(path.size() == 0) {
 				System.out.println("No Path");
-				return;
+				run = false;
+//				return;
 			}
 		}
+		
+		//set and print solved maze
+		if (maze[start.y][start.x] == -1) {
+			maze[start.y][start.x] = -2;
+		}
+		Maze.setMazeSoved(maze);
+		Maze.printSolution(maze);
+		return;
 	}
 	
-	public static boolean isValid(int y, int x) {
+	private static boolean isValid(int y, int x) {
 		if(y < 0 || y >= maze.length) {
 /*
 			System.out.println("Out Of Bounds y = " + y + " | 0 - " + (maze.length - 1) + " |");
@@ -120,5 +132,18 @@ public class MazeSolver {
 		return true;
 	}
 	
-	
+	private static Position getStart(int[][] m) {
+		Position start = new Position(0, 0);
+		for(int i = 0; i < m.length; i++) {
+			for(int k = 0; k < m[i].length; k++) {
+				if (m[i][k] == 3) {
+					start.y = i;					
+					start.x = k;
+					return start;
+				}
+			}
+		}
+		System.out.println("No start found, starting at top left corner.");
+		return start;
+	}
 }
