@@ -1,24 +1,71 @@
+import java.util.LinkedList;
 
 public class Maze {
-	private static int[][] set = {{0}};
+	public int[][] maze = {{0}};
+	public Position start = new Position(0,0);
+	public LinkedList<Position> path;
 	
 	private static int[][] mazeSolution = {{0}};
 	
 	public int[][] getMaze() {
-		int[][] x = Maze.set;
-		return x;
+		return maze;
 	}
 	
-	public static void setMaze(int[][] m) {
-		set = m;
+	public void setMaze(int[][] m) {
+		maze = m;
+		if (isStart(m)) {
+			start = getStart(m);
+		}
 	}
 	
-	public static void setMazeSoved(int[][] m) {
+	public void setStart(int y, int x) {
+		if (isStart(maze)) {
+			Position s = getStart(maze);
+			maze[s.y][s.x] = 1;
+		}
+		start = new Position(y,x);
+		maze[start.y][start.x] = 3;
+	}
+	
+	public static boolean isStart(int[][] m) {
+		for(int i = 0; i < m.length; i++) {
+			for(int k = 0; k < m[i].length; k++) {
+				if (m[i][k] == 3) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	public static Position getStart(int[][] m) {
+		Position start = new Position(0, 0);
+		for(int i = 0; i < m.length; i++) {
+			for(int k = 0; k < m[i].length; k++) {
+				if (m[i][k] == 3) {
+					start.y = i;					
+					start.x = k;
+					return start;
+				}
+			}
+		}
+		return start;
+	}
+	
+	
+	
+	
+	
+	public static void setMazeSolution(int[][] m) {
 		mazeSolution = m;
 	}
 	
+	public static int[][] getMazeSolution(int[][] m) {
+		return mazeSolution;
+	}
+	
 	public static void printMaze(int[][] m) {
-		print(Maze.set);
+		print(m);
 	}
 	
 	public static void printSolution(int[][] m) {
@@ -69,3 +116,4 @@ public class Maze {
 		
 	}
 }
+

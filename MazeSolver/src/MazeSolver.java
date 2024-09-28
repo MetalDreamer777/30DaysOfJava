@@ -3,21 +3,19 @@ import java.util.LinkedList;
 
 public class MazeSolver {
 	
-	static Maze Set = new Maze();
-	
-	static int[][] maze;
-	
-	static LinkedList<Position> path = new LinkedList<Position>();
+	static Maze m = new Maze();
 	
 	public static void main(String[] args) {
 		
-		Maze.setMaze(Mazes.maze1); // chose maze here
-		maze = Set.getMaze();
-		Maze.printMaze(maze);
+		m.maze = Mazes.maze1;
+		m.start = new Position(1,10);
+		m.path = new LinkedList<Position>();
 		
-		if (solveMaze(getStart(maze))) {
+		Maze.printMaze(m.maze);
+		
+		if (solveMaze(m.start)) {
 			System.out.println("You won!");
-			Maze.printSolution(maze);
+			Maze.printSolution(m.maze);
 		} else {
 			System.out.println("No Path");
 		}
@@ -26,98 +24,97 @@ public class MazeSolver {
 	
 	
 	private static boolean solveMaze(Position p) {
-		Position start = p;
-		path.push(p);
+		m.path.push(p);
 		
 		Boolean run = true;
 		while(run == true) {
-			int x = path.peek().x;
-			int y = path.peek().y;
+			int x = m.path.peek().x;
+			int y = m.path.peek().y;
 			
-			if (maze[y][x] == 2) {
+			if (m.maze[y][x] == 2) {
 				System.out.println("Found end at start.");
 				run = false;
 				continue;
 			}
 			
-			maze[y][x] = -1;
+			m.maze[y][x] = -1;
 
 			//down
 			if(isValid(y+1, x)) {
-				if(maze[y+1][x]==2) {
+				if(m.maze[y+1][x]==2) {
 					System.out.println(Color.GREEN + "Moved Down" + Color.RESET + "\n");
 					run = false;
 					continue;
-				}else if(maze[y+1][x]==1) {
+				}else if(m.maze[y+1][x]==1) {
 					System.out.println(Color.GREEN + "Moved Down" + Color.RESET);
-					path.push(new Position(y+1, x));
+					m.path.push(new Position(y+1, x));
 					continue;
 				}
 			}
 
 			//left
 			if(isValid(y, x-1)) {
-				if(maze[y][x-1]==2) {
+				if(m.maze[y][x-1]==2) {
 					System.out.println(Color.CYAN + "Moved Left" + Color.RESET + "\n");
 					run = false;
 					continue;
-				}else if(maze[y][x-1]==1) {
+				}else if(m.maze[y][x-1]==1) {
 					System.out.println(Color.CYAN + "Moved Left" + Color.RESET);
-					path.push(new Position(y, x-1));
+					m.path.push(new Position(y, x-1));
 					continue;
 				}
 			}
 
 			//up
 			if(isValid(y-1, x)) {
-				if(maze[y-1][x]==2) {
+				if(m.maze[y-1][x]==2) {
 					System.out.println(Color.YELLOW + "Moved Up" + Color.RESET + "\n");
 					run = false;
 					continue;
-				}else if(maze[y-1][x]==1) {
+				}else if(m.maze[y-1][x]==1) {
 					System.out.println(Color.YELLOW + "Moved Up" + Color.RESET);
-					path.push(new Position(y-1, x));
+					m.path.push(new Position(y-1, x));
 					continue;
 				}
 			}	
 
 			//right
 			if(isValid(y, x+1)) {
-				if(maze[y][x+1]==2) {
+				if(m.maze[y][x+1]==2) {
 					System.out.println(Color.PURPLE + "Moved Right" + Color.RESET + "\n");
 					run = false;
 					continue;
-				}else if(maze[y][x+1]==1) {
+				}else if(m.maze[y][x+1]==1) {
 					System.out.println(Color.PURPLE + "Moved Right" + Color.RESET);
-					path.push(new Position(y, x+1));
+					m.path.push(new Position(y, x+1));
 					continue;
 				}
 			}
 			
 			//backtrack
 			System.out.println(Color.RED + "Moved Back" + Color.RESET);
-			maze[y][x] = -2;
-			path.pop();
-			if(path.size() == 0) {
+			m.maze[y][x] = -2;
+			m.path.pop();
+			if(m.path.size() == 0) {
 				run = false;
 				return false;
 			}
 		}
 		
-		if (maze[start.y][start.x] == -1) {
-			maze[start.y][start.x] = 3;
+		if (m.maze[m.start.y][m.start.x] == -1) {
+			m.maze[m.start.y][m.start.x] = 3;
 		}
-		Maze.setMazeSoved(maze);
+		Maze.setMazeSolution(m.maze);
 		return true;
 	}
 	
 	private static boolean isValid(int y, int x) {
-		if(y < 0 || y >= maze.length) {
+		if(y < 0 || y >= m.maze.length) {
 /*
 			System.out.println("Out Of Bounds y = " + y + " | 0 - " + (maze.length - 1) + " |");
 //*/
 			return false;
-		} else if(x < 0 || x >= maze[y].length) {
+		} else if(x < 0 || x >= m.maze[y].length) {
 /*
 			System.out.println("Out Of Bounds x = " + x + " | 0 - " + (maze[y].length - 1) + " |");
 //*/
@@ -128,21 +125,5 @@ public class MazeSolver {
 //*/
 		return true;
 	}
-	
-	private static Position getStart(int[][] m) {
-		Position start = new Position(0, 0);
-		for(int i = 0; i < m.length; i++) {
-			for(int k = 0; k < m[i].length; k++) {
-				if (m[i][k] == 3) {
-					start.y = i;					
-					start.x = k;
-					return start;
-				}
-			}
-		}
-		System.out.println("No start found, starting at top left corner.");
-		return start;
-	}
-	
 		
 }
