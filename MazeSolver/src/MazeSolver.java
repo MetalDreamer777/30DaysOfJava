@@ -1,32 +1,38 @@
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 public class MazeSolver {
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws FileNotFoundException {
 		
 		ArrayList<Maze> mazes = new ArrayList<Maze>();
 		
 		Maze m = new Maze();
-		m.maze = Mazes.maze1;
-		m.start = new Position(1,10);
-		m.path = new LinkedList<Position>();
 		
-		Maze n = new Maze();
-		n.maze = Mazes.maze2;
-		n.start = new Position(1,10);
-		n.path = new LinkedList<Position>();
+		Scanner in = new Scanner(new File("mazes.txt"));
+		int rows = Integer.parseInt(in.nextLine());
+		m.maze = new int[rows][];
+		
+		for (int i = 0; i < rows; i++) {
+			String line = in.nextLine();
+			m.maze[i] = Arrays.stream(line.split(", ")).mapToInt(Integer::parseInt).toArray();
+		}
+		
+		m.start = new Position(Integer.parseInt(in.nextLine()), Integer.parseInt(in.nextLine()));
 		
 		mazes.add(m);
-		mazes.add(n);
 		
 		int i = 0;
 		while (i < mazes.size()) {
 			Maze e = mazes.get(i);
 			
 			System.out.println("New Maze");
-			Maze.printMaze(m);
+			Maze.printMaze(e);
 		
 			if (solveMaze(e)) {
 				System.out.println("You won!");
@@ -39,8 +45,7 @@ public class MazeSolver {
 			i++;
 		}
 		
-
-		
+		in.close();
 	}
 	
 	

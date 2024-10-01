@@ -3,7 +3,7 @@ import java.util.LinkedList;
 public class Maze {
 	public int[][] maze = {{0}};
 	public Position start = new Position(0,0);
-	public LinkedList<Position> path;
+	public LinkedList<Position> path = new LinkedList<Position>();
 	
 	private static int[][] mazeSolution = {{0}};
 	
