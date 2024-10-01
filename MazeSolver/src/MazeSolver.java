@@ -1,29 +1,51 @@
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class MazeSolver {
 	
-	static Maze m = new Maze();
-	
 	public static void main(String[] args) {
 		
+		ArrayList<Maze> mazes = new ArrayList<Maze>();
+		
+		Maze m = new Maze();
 		m.maze = Mazes.maze1;
 		m.start = new Position(1,10);
 		m.path = new LinkedList<Position>();
 		
-		Maze.printMaze(m.maze);
+		Maze n = new Maze();
+		n.maze = Mazes.maze2;
+		n.start = new Position(1,10);
+		n.path = new LinkedList<Position>();
 		
-		if (solveMaze(m.start)) {
-			System.out.println("You won!");
-			Maze.printSolution(m.maze);
-		} else {
-			System.out.println("No Path");
+		mazes.add(m);
+		mazes.add(n);
+		
+		int i = 0;
+		while (i < mazes.size()) {
+			Maze e = mazes.get(i);
+			
+			System.out.println("New Maze");
+			Maze.printMaze(m);
+		
+			if (solveMaze(e)) {
+				System.out.println("You won!");
+				Maze.printSolution(e.maze);
+				System.out.println();
+			} else {
+				System.out.println("No Path\n");
+			}
+			
+			i++;
 		}
+		
+
 		
 	}
 	
 	
-	private static boolean solveMaze(Position p) {
+	private static boolean solveMaze(Maze m) {
+		Position p = m.start;
 		m.path.push(p);
 		
 		Boolean run = true;
@@ -40,7 +62,7 @@ public class MazeSolver {
 			m.maze[y][x] = -1;
 
 			//down
-			if(isValid(y+1, x)) {
+			if(isValid(y+1, x, m)) {
 				if(m.maze[y+1][x]==2) {
 					System.out.println(Color.GREEN + "Moved Down" + Color.RESET + "\n");
 					run = false;
@@ -53,7 +75,7 @@ public class MazeSolver {
 			}
 
 			//left
-			if(isValid(y, x-1)) {
+			if(isValid(y, x-1, m)) {
 				if(m.maze[y][x-1]==2) {
 					System.out.println(Color.CYAN + "Moved Left" + Color.RESET + "\n");
 					run = false;
@@ -66,7 +88,7 @@ public class MazeSolver {
 			}
 
 			//up
-			if(isValid(y-1, x)) {
+			if(isValid(y-1, x, m)) {
 				if(m.maze[y-1][x]==2) {
 					System.out.println(Color.YELLOW + "Moved Up" + Color.RESET + "\n");
 					run = false;
@@ -79,7 +101,7 @@ public class MazeSolver {
 			}	
 
 			//right
-			if(isValid(y, x+1)) {
+			if(isValid(y, x+1, m)) {
 				if(m.maze[y][x+1]==2) {
 					System.out.println(Color.PURPLE + "Moved Right" + Color.RESET + "\n");
 					run = false;
@@ -108,7 +130,7 @@ public class MazeSolver {
 		return true;
 	}
 	
-	private static boolean isValid(int y, int x) {
+	private static boolean isValid(int y, int x, Maze m) {
 		if(y < 0 || y >= m.maze.length) {
 /*
 			System.out.println("Out Of Bounds y = " + y + " | 0 - " + (maze.length - 1) + " |");

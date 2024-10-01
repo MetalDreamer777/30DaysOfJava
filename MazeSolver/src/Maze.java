@@ -54,8 +54,6 @@ public class Maze {
 	
 	
 	
-	
-	
 	public static void setMazeSolution(int[][] m) {
 		mazeSolution = m;
 	}
@@ -64,8 +62,8 @@ public class Maze {
 		return mazeSolution;
 	}
 	
-	public static void printMaze(int[][] m) {
-		print(m);
+	public static void printMaze(Maze m) {
+		print(m.maze);
 	}
 	
 	public static void printSolution(int[][] m) {
