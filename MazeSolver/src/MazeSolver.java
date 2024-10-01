@@ -26,7 +26,7 @@ public class MazeSolver {
 			Maze e = mazes.get(i);
 			
 			System.out.println("New Maze");
-			Maze.printMaze(m);
+			Maze.printMaze(e);
 		
 			if (solveMaze(e)) {
 				System.out.println("You won!");
